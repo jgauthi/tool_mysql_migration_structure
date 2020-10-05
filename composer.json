@@ -1,0 +1,14 @@
+{
+  "name": "jgauthi/tool_mysql_migration_structure",
+  "description": "Tool to migrate a mysql database from migration files (*.sql). Useful for legacy projects, without framework.",
+  "type": "library",
+  "homepage": "https://github.com/jgauthi/tool_mysql_migration_structure",
+  "require": {
+    "php": ">=5.3",
+    "ext-mysql": "*"
+  },
+  "license": "GPL-3.0",
+  "authors": [
+    { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
+  ]
+}
