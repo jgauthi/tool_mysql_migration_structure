@@ -20,8 +20,3 @@ trim_trailing_whitespace = false
 [*.sh]
 indent_style = tab
 indent_size = 4
-
-[*.{cmd,bat}]
-end_of_line = crlf
-indent_style = tab
-indent_size = 4

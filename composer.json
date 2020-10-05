@@ -4,9 +4,12 @@
   "type": "library",
   "homepage": "https://github.com/jgauthi/tool_mysql_migration_structure",
   "require": {
-    "php": ">=5.3",
-    "ext-mysql": "*"
+    "php": ">=5.6",
+    "ext-pdo": "*"
   },
+  "bin": [
+    "bin/mysql_migration_sql.sh"
+  ],
   "license": "GPL-3.0",
   "authors": [
     { "name": "jgauthi", "homepage": "https://github.com/jgauthi" }
