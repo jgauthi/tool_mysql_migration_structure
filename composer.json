@@ -8,7 +8,8 @@
     "ext-pdo": "*"
   },
   "bin": [
-    "bin/mysql_migration_sql.sh"
+    "bin/mysql_migration_sql.sh",
+    "bin/docker_mysql_migration_sql.sh"
   ],
   "license": "GPL-3.0",
   "authors": [

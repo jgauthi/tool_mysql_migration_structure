@@ -20,3 +20,11 @@ trim_trailing_whitespace = false
 [*.sh]
 indent_style = tab
 indent_size = 4
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[{Makefile.*,makefile,Makefile,GNUmakefile,*.mk}]
+indent_style = tab
+tab_width = 4

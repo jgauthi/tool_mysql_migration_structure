@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  web:
+    build: .
+    volumes:
+      - ./../migration_structures:/var/www/sql
+    depends_on:
+      - dbmysql
+
+  dbmysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - TZ=${TIMEZONE:-Europe/Paris}
+    ports:
+      - 3306
