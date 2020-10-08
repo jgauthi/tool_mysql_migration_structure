@@ -19,7 +19,7 @@ Or you can add this poc like a dependency, in this case edit your [composer.json
     { "type": "git", "url": "git@github.com:jgauthi/tool_mysql_migration_structure.git" }
   ],
   "require": {
-    "jgauthi/tool_mysql_migration_structure": "1.*"
+    "jgauthi/tool_mysql_migration_structure": "2.*"
   }
 }
 ```

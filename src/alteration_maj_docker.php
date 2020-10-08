@@ -2,7 +2,7 @@
 <?php
 /***********************************************************************************
  * @name: Alteration Maj Database [Docker version]
- * @note: Récupère et execute les fichiers de migrations SQL
+ * @note: Retrieves and executes SQL migrations files
  * @author: Jgauthi <github.com/jgauthi>, created at [21oct2019]
  * @Requirements:
     - PHP version >= 5.6+ (http://php.net)
@@ -12,7 +12,7 @@
  * @usage Look at /bin/docker_mysql_migration_sql.sh
  * @arguments:
     - database_name
-    - chemin_dossier_migration_sql_script
+    - migration_folder_path_sql_script
     - user
     - pass
     - server (optionnel, localhost by default)
@@ -20,14 +20,14 @@
 
  **********************************************************************************/
 
-// Verif avant lancement
+// Check
 if (!isset($argv[1], $argv[2], $argv[3], $argv[4]) || empty($argv[1]) || empty($argv[3])) {
-    die('Login de connexion MySQL non fournit'.PHP_EOL);
+    die('MySQL connection login not provided'.PHP_EOL);
 } elseif (empty($argv[2]) || !is_readable($alterDir = realpath($argv[2]))) {
-    die("Chemin '{$argv[2]}' vers le dossier de migration script SQL incorrecte".PHP_EOL);
+    die("Incorrect path '{$argv[2]}' to SQL script migration folder".PHP_EOL);
 }
 
-// Connexion base de donnée
+// Connexion
 $dsn = [];
 $dsn[] = 'dbname='.$argv[1];
 $dsn[] = 'host='.((!empty($argv[5])) ? $argv[5] : 'localhost');
@@ -41,7 +41,7 @@ $pdo = new PDO('mysql:'.implode(';', $dsn), $argv[3], $argv[4], [
     PDO::ATTR_ERRMODE               => PDO::ERRMODE_EXCEPTION,
 ]);
 
-// Création de la table dans le cas où elle existera pas
+// Creation of the table if it does not exist
 $pdo->exec("CREATE TABLE IF NOT EXISTS `migration_structures`
 (
 	`file` VARCHAR(255) NOT NULL,
@@ -60,7 +60,7 @@ if ($scriptUsed->rowCount() > 0) {
         $maj_effectue[] = $filename;
     }
 
-    // Exclure les scripts déjà lancés
+    // Exclude scripts already started
     $liste_maj = array_diff($scriptList, $maj_effectue);
     sort($liste_maj, SORT_STRING);
     if (empty($liste_maj)) {
@@ -68,9 +68,8 @@ if ($scriptUsed->rowCount() > 0) {
         die();
     }
 
-    // Lancer les scripts
     echo "Launching database structural migrations on \"{$argv[1]}\":".PHP_EOL;
-    $sqlDisplayName = basename(dirname($alterDir, 1)).DIRECTORY_SEPARATOR.
+    $sqlDisplayName = basename(dirname($alterDir)).DIRECTORY_SEPARATOR.
                   basename($alterDir).DIRECTORY_SEPARATOR;
 
     foreach($liste_maj as $filename) {
@@ -84,12 +83,12 @@ if ($scriptUsed->rowCount() > 0) {
             $pdo->exec("INSERT INTO `migration_structures` SET file = '". addslashes($filename) ."'");
 
         } catch(PDOException $e) {
-            echo "- Erreur dans le fichier '{$file}': {$e->getMessage()}".PHP_EOL;
+            echo "- Error in sqlfile '{$file}': {$e->getMessage()}".PHP_EOL;
             break;
         }
     }
 
-// Si la table est vide, les fichiers de migrations sont considérés comme déjà lancés
+// If the table is empty, the migration files are considered to have already been launched
 } elseif (!empty($scriptList)) {
     $indexFile = [];
     foreach ($scriptList as $filename) {
@@ -103,7 +102,7 @@ if ($scriptUsed->rowCount() > 0) {
     );
 
 } else {
-    echo 'Aucun script de migrations à lancer.'.PHP_EOL;
+    echo 'No migration files to run.'.PHP_EOL;
 }
 
 $pdo = null; // Close connection

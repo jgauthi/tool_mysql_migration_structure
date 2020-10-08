@@ -14,4 +14,4 @@ $(dirname $0)/../bin/mysql_migration_sql.sh "$database" "$folder_migration" "$us
 
 # Installed like dependency with composer
 # In this example, the vendor folder is located in "example/"
-#./vendor/bin/mysql_migration_sql.sh "$database" "$folder_migration" "$user" "$pass" "$host" "$port"
+#./vendor/bin/mysql_migration_sql.sh [...]

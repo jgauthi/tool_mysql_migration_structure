@@ -4,7 +4,7 @@
 # @arguments:
 # - container: you can get container NAME or ID with `docker ps` command
 # - database_name
-# - chemin_dossier_migration_sql_script_in_docker
+# - migration_folder_path_sql_script
 # - php service name (optional, default value: php)
 # - user (optional, default value: local)
 # - pass (optional, default value: local)
@@ -47,5 +47,5 @@ to_script="/tmp/maj_database.php"
 
 docker cp "$from_script" "${container}:${to_script}"
 
-docker exec -it "$container" php -d memory_limit=1500M "$to_script" "$database" "$folder_migration" "$user" "$pass" "$host" "$port"
-docker exec -it "$container" rm -f "$to_script"
+docker exec -it "$container" php -d memory_limit=500M "$to_script" "$database" "$folder_migration" "$user" "$pass" "$host" "$port"
+docker exec -u root -it "$container" rm -f "$to_script"

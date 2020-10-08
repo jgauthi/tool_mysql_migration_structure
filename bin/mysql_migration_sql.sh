@@ -2,7 +2,7 @@
 #set -xv
 # @arguments:
 # - database_name
-# - chemin_dossier_migration_sql_script
+# - migration_folder_path_sql_script
 # - user (optional, default value: local)
 # - pass (optional, default value: local)
 # - server (optional, default value: localhost)
